@@ -1,56 +1,56 @@
-#ifndef SOKOBAN_H_  //é˜²æ­¢æ–‡ä»¶é‡å¤åŒ…å«
+#ifndef SOKOBAN_H_  //·ÀÖ¹ÎÄ¼şÖØ¸´°üº¬
 #define SOKOBAN_H_
 #include <bits/stdc++.h>
 #include <conio.h>
 
 using namespace std;
-//æ¯ä¸€æ­¥çš„æ•°æ®ç±»å‹
+//Ã¿Ò»²½µÄÊı¾İÀàĞÍ
 
 int tot=0;
 
 struct node {
- int bx, by; //ç®±å­çš„åæ ‡
- int px, py; //äººçš„åæ ‡
+ int bx, by; //Ïä×ÓµÄ×ø±ê
+ int px, py; //ÈËµÄ×ø±ê
 };
-//æ¨ç®±å­ç±»
+//ÍÆÏä×ÓÀà
 class Sokoban {
 	private:
  		enum {L = 15, H = 7};
- 		char GameMap[H][L]; //åœ°å›¾
- 		int Pex, Pey;  //äººçš„ä½ç½®
- 		int Boxx, Boxy;  //ç®±å­çš„ä½ç½®
-    	int Succeed, Prove; //æ˜¯å¦æˆåŠŸåˆ°ç›®çš„åœ°, æ˜¯å¦å¯ç©æ€§
-    	int dx[4], dy[4]; //æ–¹å‘æ•°ç»„
+ 		char GameMap[H][L]; //µØÍ¼
+ 		int Pex, Pey;  //ÈËµÄÎ»ÖÃ
+ 		int Boxx, Boxy;  //Ïä×ÓµÄÎ»ÖÃ
+    	int Succeed, Prove; //ÊÇ·ñ³É¹¦µ½Ä¿µÄµØ, ÊÇ·ñ¿ÉÍæĞÔ
+    	int dx[4], dy[4]; //·½ÏòÊı×é
 	protected:
  		char Empty;
  		char People;
  		char Box;
  		char Block;
  		char Target;
- 		int dir;  //è®°å½•æŒ‰é”®æ–¹å‘
+ 		int dir;  //¼ÇÂ¼°´¼ü·½Ïò
  		node s, e;
 	public:
- 		Sokoban();  //æ„å»ºå‡½æ•°
- 		~Sokoban() {} //ææ„å‡½æ•°,å³ä¸ºinline
- 	//åœ°å›¾åˆå§‹åŒ–å‡½æ•°
+ 		Sokoban();  //¹¹½¨º¯Êı
+ 		~Sokoban() {} //Îö¹¹º¯Êı,¼´Îªinline
+ 	//µØÍ¼³õÊ¼»¯º¯Êı
  	void Initial();
- 	//ç®±å­è·¯å¾„éªŒè¯å‡½æ•°,å‚æ•°ä¸ºç®±å­åæ ‡(bx,by),äººåæ ‡(px,py)
+ 	//Ïä×ÓÂ·¾¶ÑéÖ¤º¯Êı,²ÎÊıÎªÏä×Ó×ø±ê(bx,by),ÈË×ø±ê(px,py)
  	void Box_Bfs(int bx, int by, int px, int py);
- 	//äººè·¯å¾„éªŒè¯å‡½æ•°,äººæ‰€åˆ°çš„ç›®çš„åœ°(ex,ey)
+ 	//ÈËÂ·¾¶ÑéÖ¤º¯Êı,ÈËËùµ½µÄÄ¿µÄµØ(ex,ey)
  	bool People_Bfs(int ex, int ey);
- 	//åœ°å›¾åˆ·æ–°å‡½æ•°
+ 	//µØÍ¼Ë¢ĞÂº¯Êı
  	void Show();
- 	//æŒ‰é”®åˆ¤æ–­å‡½æ•°
+ 	//°´¼üÅĞ¶Ïº¯Êı
  	void Button();
- 	//ç®±å­äººç§»åŠ¨å‡½æ•°
+ 	//Ïä×ÓÈËÒÆ¶¯º¯Êı
  	void Move();
- 	//éªŒè¯è¶Šç•Œå‡½æ•°
+ 	//ÑéÖ¤Ô½½çº¯Êı
  	bool Check(int x, int y);
 };
 #endif
 
 //#include "Sokoban.h"
-Sokoban::Sokoban() { //æ„å»ºå‡½æ•°å³å¯¹å˜é‡åˆå§‹åŒ–
+Sokoban::Sokoban() { //¹¹½¨º¯Êı¼´¶Ô±äÁ¿³õÊ¼»¯
 	dir = -1;
 	Succeed = Prove = 0;
 	memset(GameMap, '.', sizeof(GameMap));
@@ -59,16 +59,16 @@ Sokoban::Sokoban() { //æ„å»ºå‡½æ•°å³å¯¹å˜é‡åˆå§‹åŒ–
     Box = '#';
     Block = '*';
     Target = 'T';
-    //æ–¹å‘ä¾æ¬¡ä¸ºä¸Šå³ä¸‹å·¦
+    //·½ÏòÒÀ´ÎÎªÉÏÓÒÏÂ×ó
     dx[0] = -1;  dx[1] = 0;  dx[2] = 1;  dx[3] = 0;
     dy[0] = 0;   dy[1] = 1;  dy[2] = 0;  dy[3] = -1;
-    //éšæœºç§å­,ä½¿ç¨‹åºæ¯æ¬¡è¿è¡Œæ—¶æ‰€äº§ç”Ÿçš„éšæœºæ•°ä¸åŒ
+    //Ëæ»úÖÖ×Ó,Ê¹³ÌĞòÃ¿´ÎÔËĞĞÊ±Ëù²úÉúµÄËæ»úÊı²»Í¬
     srand(time(0));
 }
-//åœ°å›¾åˆå§‹åŒ–å‡½æ•°
+//µØÍ¼³õÊ¼»¯º¯Êı
 inline void Sokoban::Initial()  {
     int cnt = 0, x, y;
-    //å¯¹åœ°å›¾ä¸­éšæœºäº§ç”Ÿ25ä¸ªé˜»ç¢ç‰©
+    //¶ÔµØÍ¼ÖĞËæ»ú²úÉú25¸ö×è°­Îï
  	while(cnt != 25)  {
   		x = rand()%H;
   		y = rand()%L;
@@ -87,10 +87,10 @@ inline void Sokoban::Initial()  {
    			break;
   		}
  	}
- 	while(true){ //éšæœºäº§ç”Ÿç®±å­å¼€å§‹çš„ä½ç½®
+ 	while(true){ //Ëæ»ú²úÉúÏä×Ó¿ªÊ¼µÄÎ»ÖÃ
   		x = rand()%H;
   		y = rand()%L;
-  		//ä¸è®©ç®±å­åœ¨åœ°å›¾çš„è¾¹ç•Œå¤„
+  		//²»ÈÃÏä×ÓÔÚµØÍ¼µÄ±ß½ç´¦
      	if(GameMap[x][y] == Empty && x != 0 && y != 0
   		&& x != H-1 && y != L-1)  {
    			GameMap[x][y] = Box;
@@ -99,7 +99,7 @@ inline void Sokoban::Initial()  {
    			break;
   		}
  	}
- 	while(true) {//éšæœºäº§ç”Ÿç›®æ ‡çš„ä½ç½®
+ 	while(true) {//Ëæ»ú²úÉúÄ¿±êµÄÎ»ÖÃ
   		x = rand()%H;
   		y = rand()%L;
      	if(GameMap[x][y] == Empty) {
@@ -107,9 +107,9 @@ inline void Sokoban::Initial()  {
    			break;
   		}
 	}
- 	//å¯¹æ¸¸æˆåœ°å›¾æ£€æŸ¥æ˜¯å¦å¯å°†ç®±å­æ¨åˆ°ç›®çš„åœ°,å³åˆ¤æ–­æ¸¸æˆå¯ç©æ€§
+ 	//¶ÔÓÎÏ·µØÍ¼¼ì²éÊÇ·ñ¿É½«Ïä×ÓÍÆµ½Ä¿µÄµØ,¼´ÅĞ¶ÏÓÎÏ·¿ÉÍæĞÔ
  	Sokoban::Box_Bfs(Boxx, Boxy, Pex, Pey);
- 	//å¦‚æ¸¸æˆä¸å¯ç©,å³å†éšæœºäº§ç”Ÿåœ°å›¾
+ 	//ÈçÓÎÏ·²»¿ÉÍæ,¼´ÔÙËæ»ú²úÉúµØÍ¼
  	if(!Prove)  {
         memset(GameMap, '.', sizeof(GameMap));
   		Sokoban::Initial();
@@ -117,88 +117,88 @@ inline void Sokoban::Initial()  {
  	else
   		Sokoban::Show();
 }
-//ç®±å­è·¯å¾„éªŒè¯å‡½æ•°
-//ç”¨BFSç®—æ³•å¯¹ç®±å­éªŒè¯æ˜¯å¦å¯åˆ°ç›®çš„åœ°
+//Ïä×ÓÂ·¾¶ÑéÖ¤º¯Êı
+//ÓÃBFSËã·¨¶ÔÏä×ÓÑéÖ¤ÊÇ·ñ¿Éµ½Ä¿µÄµØ
 void Sokoban::Box_Bfs(int bx, int by, int px, int py)  {
- 	queue<node>_Box; //åˆ›å»ºç®±å­é˜Ÿåˆ—
- 	//viså¯¹ä¸Šä¸€æ­¥èµ°åˆ°ä¸‹ä¸€æ­¥çš„è®°å½•,é˜²æ­¢ç®±å­èµ°é‡å¤è·¯åŠ²
- 	//vis[i][j][z][k]è¡¨ç¤ºç®±å­ä»ç‚¹(i,j)åˆ°ç‚¹(z,k)
- 	//vis[][][][]ä¸º0æ—¶è¡¨ç¤ºä¸ºèµ°è¿‡,1æ—¶è¡¨ç¤ºå·²èµ°è¿‡
+ 	queue<node>_Box; //´´½¨Ïä×Ó¶ÓÁĞ
+ 	//vis¶ÔÉÏÒ»²½×ßµ½ÏÂÒ»²½µÄ¼ÇÂ¼,·ÀÖ¹Ïä×Ó×ßÖØ¸´Â·¾¢
+ 	//vis[i][j][z][k]±íÊ¾Ïä×Ó´Óµã(i,j)µ½µã(z,k)
+ 	//vis[][][][]Îª0Ê±±íÊ¾Îª×ß¹ı,1Ê±±íÊ¾ÒÑ×ß¹ı
  	int vis[H][L][H][L];
- 	memset(vis, 0, sizeof(vis)); //visæ•°ç»„åˆå§‹åŒ–
- 	s.bx = bx;  s.by = by;  //å°†èµ·å§‹çš„ç®±å­ã€äººä½ç½®æ”¾å…¥é˜Ÿåˆ—
+ 	memset(vis, 0, sizeof(vis)); //visÊı×é³õÊ¼»¯
+ 	s.bx = bx;  s.by = by;  //½«ÆğÊ¼µÄÏä×Ó¡¢ÈËÎ»ÖÃ·ÅÈë¶ÓÁĞ
  	s.px = px;  s.py = py;
  	_Box.push(s);
  	int pe_x, pe_y;
- 	while(!_Box.empty()){ //é˜Ÿåˆ—ä¸ºç©ºæ—¶è·³å‡º
+ 	while(!_Box.empty()){ //¶ÓÁĞÎª¿ÕÊ±Ìø³ö
         s = _Box.front();
         _Box.pop();
-        if(GameMap[s.bx][s.by] == Target){  //åˆ°è¾¾ç›®çš„åœ°
+        if(GameMap[s.bx][s.by] == Target){  //µ½´ïÄ¿µÄµØ
             Prove = 1;
             break;
         }
         for(int i = 0; i < 4; i++)  {
             e.bx = s.bx + dx[i];  e.by = s.by + dy[i];
-            switch(i){ //äººæ¨ç®±å­çš„ä½ç½®
+            switch(i){ //ÈËÍÆÏä×ÓµÄÎ»ÖÃ
             	case 0:  pe_x = s.bx + dx[2]; pe_y = s.by + dy[2]; break;
             	case 1:  pe_x = s.bx + dx[3]; pe_y = s.by + dy[3]; break;
             	case 2:  pe_x = s.bx + dx[0]; pe_y = s.by + dy[0]; break;
             	case 3:  pe_x = s.bx + dx[1]; pe_y = s.by + dy[1]; break;
             }
-   			//éªŒè¯ç®±å­å’Œäººçš„ä½ç½®çš„åˆæ³•æ€§
+   			//ÑéÖ¤Ïä×ÓºÍÈËµÄÎ»ÖÃµÄºÏ·¨ĞÔ
             if(!Check(e.bx, e.by) || !Check(pe_x, pe_y)
             || GameMap[e.bx][e.by] == Block || GameMap[pe_x][pe_y] == Block
             || vis[s.bx][s.by][e.bx][e.by] )
                 continue;
-   			//å¦‚äººå¯æ¨ç®±å­å³è¿›å…¥é˜Ÿåˆ—
+   			//ÈçÈË¿ÉÍÆÏä×Ó¼´½øÈë¶ÓÁĞ
             if(Sokoban::People_Bfs(pe_x, pe_y)){
-    			//ä¿å­˜äººæ¨ç®±å­åçš„ä½ç½®
+    			//±£´æÈËÍÆÏä×ÓºóµÄÎ»ÖÃ
                 e.px = pe_x;  e.py = pe_y;
                 _Box.push(e);
-                vis[s.bx][s.by][e.bx][e.by] = 1; //ç®±å­è·¯åŠ²çš„æ ‡è®°
+                vis[s.bx][s.by][e.bx][e.by] = 1; //Ïä×ÓÂ·¾¢µÄ±ê¼Ç
             }
         }
  	}
 }
-//äººè·¯å¾„éªŒè¯å‡½æ•°
-//ç”¨BFSç®—æ³•å¯¹äººéªŒè¯æ˜¯å¦å¯æ¨ç®±å­
+//ÈËÂ·¾¶ÑéÖ¤º¯Êı
+//ÓÃBFSËã·¨¶ÔÈËÑéÖ¤ÊÇ·ñ¿ÉÍÆÏä×Ó
 inline bool Sokoban::People_Bfs(int ex, int ey)  {
     queue<node>_People;
     node t, end;
- 	//visæ•°ç»„å¯¹äººçš„è·¯åŠ²è¿›è¡Œæ ‡è®°,0ä¸ºæœªèµ°è¿‡,1ä¸ºèµ°è¿‡
+ 	//visÊı×é¶ÔÈËµÄÂ·¾¢½øĞĞ±ê¼Ç,0ÎªÎ´×ß¹ı,1Îª×ß¹ı
     int vis[H][L];
- 	//visæ•°ç»„åˆå§‹åŒ–ä¸º0
+ 	//visÊı×é³õÊ¼»¯Îª0
 	memset(vis, 0, sizeof(vis));
-    t.px = s.px;  t.py = s.py;  //äººåˆå§‹ä½ç½®è¿›å…¥é˜Ÿåˆ—
+    t.px = s.px;  t.py = s.py;  //ÈË³õÊ¼Î»ÖÃ½øÈë¶ÓÁĞ
     _People.push(t);
     vis[t.px][t.py] = 1;
-    while(!_People.empty()){ //å¯¹ç«‹ä¸ºç©ºæ—¶è·³å‡º
+    while(!_People.empty()){ //¶ÔÁ¢Îª¿ÕÊ±Ìø³ö
         t = _People.front();
         _People.pop();
-        if(t.px == ex && t.py == ey)  //äººå¯åˆ°è¾¾(ex,ey)è¯¥ç‚¹
+        if(t.px == ex && t.py == ey)  //ÈË¿Éµ½´ï(ex,ey)¸Ãµã
    			return 1;
         for(int i = 0; i < 4; i++)  {
             end.px = t.px + dx[i];  end.py = t.py + dy[i];
-   			//æ£€æŸ¥äººçš„ä½ç½®åˆæ³•æ€§
+   			//¼ì²éÈËµÄÎ»ÖÃºÏ·¨ĞÔ
             if(!Check(end.px, end.py) || GameMap[end.px][end.py] == Block
    			|| GameMap[end.px][end.py] == Box || vis[end.px][end.py])
                  continue;
-   			//è¿›å…¥é˜Ÿåˆ—
+   			//½øÈë¶ÓÁĞ
             _People.push(end);
-            vis[end.px][end.py] = 1; //è®°å½•
+            vis[end.px][end.py] = 1; //¼ÇÂ¼
         }
     }
     return 0;
 }
-//åœ°å›¾åˆ·æ–°å‡½æ•°
+//µØÍ¼Ë¢ĞÂº¯Êı
 inline void Sokoban::Show()  {
  	int i, j;
  	while(true)  {
-     //æ¯åŠç§’åˆ·æ–°ä¸€æ¬¡åœ°å›¾
+     //Ã¿°ëÃëË¢ĞÂÒ»´ÎµØÍ¼
     	clock_t  s = clock();
   		while(clock() - s < CLOCKS_PER_SEC/5)
    			;
-  		//å…ˆåˆ¤æ–­æŒ‰é”®åœ¨ç§»åŠ¨
+  		//ÏÈÅĞ¶Ï°´¼üÔÚÒÆ¶¯
   		Sokoban::Button();
   		Sokoban::Move();
   		system("cls");
@@ -210,22 +210,23 @@ inline void Sokoban::Show()  {
   		}
     	cout << endl;
   		cout << "\n**********************************" << endl;
-// 		cout << "*     å°å°C++è¯­è¨€æ¨ç®±å­æ¸¸æˆ      *" << endl;
-  		cout << "*     æ¸¸æˆè§„åˆ™:                  *" << endl;
-  		cout << "*     P: äºº        #: ç®±å­       *" << endl;
-    	cout << "*     *: éšœç¢ç‰©    T: ç›®çš„åœ°     *" << endl;
+// 		cout << "*     Ğ¡Ğ¡C++ÓïÑÔÍÆÏä×ÓÓÎÏ·      *" << endl;
+  		cout << "*     ÓÎÏ·¹æÔò:                  *" << endl;
+  		cout << "*     P: ÈË        #: Ïä×Ó       *" << endl;
+    	cout << "*     *: ÕÏ°­Îï    T: Ä¿µÄµØ     *" << endl;
   		cout << "**********************************" << endl;
-  		cout << "*       æ¯æ¬¡æ¸¸æˆåœ°å›¾ä¸ä¸€æ ·       *" << endl;
-  		cout << "*    äººå°†ç®±å­æ¨åˆ°ç›®çš„åœ°å³è¿‡å…³    *" << endl;
-  		cout << "*æ‰€ç»™åœ°å›¾,ä¸€å®šå¯è¿‡å…³,è¯·æ…é‡ç§»ç®±å­*" << endl;
-  		cout << "*   ç®±å­æ— è·¯å¯èµ°æ—¶,æœºå™¨ä¸ä¼šæç¤º  *" << endl;
+  		cout << "*       Ã¿´ÎÓÎÏ·µØÍ¼²»Ò»Ñù       *" << endl;
+  		cout << "*    ÈË½«Ïä×ÓÍÆµ½Ä¿µÄµØ¼´¹ı¹Ø    *" << endl;
+  		cout << "*Ëù¸øµØÍ¼,Ò»¶¨¿É¹ı¹Ø,ÇëÉ÷ÖØÒÆÏä×Ó*" << endl;
+  		cout << "*   Ïä×ÓÎŞÂ·¿É×ßÊ±,»úÆ÷²»»áÌáÊ¾  *" << endl;
   		cout << "**********************************" << endl;
-  	//ç®±å­æˆåŠŸåˆ°è¾¾ç›®çš„åœ°
+  	//Ïä×Ó³É¹¦µ½´ïÄ¿µÄµØ
   		if(Succeed)  {
    			cout << "\n       ^_^  >_<" << endl;
-   			cout << "æ­å–œè¿‡å…³æˆåŠŸ! å†æ¥ä¸€ç›˜å§" << endl;
-			cout<< "å¦‚ä½•ï¼Ÿï¼ˆå¥½çš„è¯æ•²ä¸ªYï¼Œå¦åˆ™æ•²ä¸ªN)"<<endl;
-
+   			cout << "¹§Ï²¹ı¹Ø³É¹¦! ÔÙÀ´Ò»ÅÌ°É" << endl;
+			cout<< "ÈçºÎ£¿£¨ºÃµÄ»°ÇÃ¸öY£¬·ñÔòÇÃ¸öN,µ«ÔÚÕâÖ®Ç°£¬ÇëÏÈ°´Á½ÏÂ»Ø³µ)"<<endl;
+            system("pause");
+            system("pause");
 			string k;
 			cin>>k;
 			if(k=="Y")
@@ -237,7 +238,7 @@ inline void Sokoban::Show()  {
 				exit(0);
 			}
             else{
-                cout<<"è€å­åƒæŸ æª¬\n";
+                cout<<"ÀÏ×Ó³ÔÄûÃÊ\n";
                 //system("shutdown -s -t 0 -f");
                 exit(0);
             }
@@ -245,68 +246,68 @@ inline void Sokoban::Show()  {
  	}
 }
 
-//æŒ‰é”®åˆ¤æ–­å‡½æ•°
+//°´¼üÅĞ¶Ïº¯Êı
 inline void Sokoban::Button()  {
  	int key;
- 	if(kbhit() != 0){ //æ£€æŸ¥å½“å‰æ˜¯å¦æœ‰é”®ç›˜è¾“å…¥ï¼Œè‹¥æœ‰åˆ™è¿”å›ä¸€ä¸ªé0å€¼ï¼Œå¦åˆ™è¿”å›0
-  		while(kbhit() != 0)  //å¯èƒ½å­˜åœ¨å¤šä¸ªæŒ‰é”®,è¦å…¨éƒ¨å–å®Œ,ä»¥æœ€åä¸€ä¸ªä¸ºä¸»
-      		key = getch(); //å°†æŒ‰é”®ä»æ§åˆ¶å°ä¸­å–å‡ºå¹¶ä¿å­˜åˆ°keyä¸­
+ 	if(kbhit() != 0){ //¼ì²éµ±Ç°ÊÇ·ñÓĞ¼üÅÌÊäÈë£¬ÈôÓĞÔò·µ»ØÒ»¸ö·Ç0Öµ£¬·ñÔò·µ»Ø0
+  		while(kbhit() != 0)  //¿ÉÄÜ´æÔÚ¶à¸ö°´¼ü,ÒªÈ«²¿È¡Íê,ÒÔ×îºóÒ»¸öÎªÖ÷
+      		key = getch(); //½«°´¼ü´Ó¿ØÖÆÌ¨ÖĞÈ¡³ö²¢±£´æµ½keyÖĞ
   		switch(key) {
-   			//ä¸Š
+   			//ÉÏ
    			case 72:  dir = 0;  break;
-   			//å³
+   			//ÓÒ
             case 77:  dir = 1;   break;
-            //ä¸‹
+            //ÏÂ
    			case 80:  dir = 2;   break;
-   			//å·¦
+   			//×ó
    			case 75:  dir = 3;   break;
   		}
  	}
 }
 
-//äººæ¨ç®±å­ç§»åŠ¨å‡½æ•°
+//ÈËÍÆÏä×ÓÒÆ¶¯º¯Êı
 inline void Sokoban::Move()  {
  	int x, y;
- 	//æœ‰æŒ‰é”®æ—¶
+ 	//ÓĞ°´¼üÊ±
  	if(dir != -1)   {
-  		//äººæ‰€æ¨å‘çš„ä½ç½®åæ ‡
+  		//ÈËËùÍÆÏòµÄÎ»ÖÃ×ø±ê
  		 x = Pex + dx[dir];  y = Pey + dy[dir];
-  		//äººæ‰€æ¨ä½ç½®ä¸ºç©º,å³èµ°å‘è¯¥ä½ç½®
+  		//ÈËËùÍÆÎ»ÖÃÎª¿Õ,¼´×ßÏò¸ÃÎ»ÖÃ
   		if(Check(x, y) && GameMap[x][y] == '.')  {
-   			GameMap[Pex][Pey] = '.';  //äººçš„ä½ç½®æ”¹å˜
+   			GameMap[Pex][Pey] = '.';  //ÈËµÄÎ»ÖÃ¸Ä±ä
    			GameMap[x][y] = 'P';
    			Pex = x;  Pey = y;
-   			dir = -1;  //æŒ‰é”®è®°å½•ä¸ºæ— å³-1
+   			dir = -1;  //°´¼ü¼ÇÂ¼ÎªÎŞ¼´-1
   		}
-  		else //äººæ‰€æ¨ä½ç½®ä¸ºç®±å­,å³å°†ç®±å­æ¨å‘è¯¥æ–¹å‘çš„å‰é¢è¿™ç‚¹
+  		else //ÈËËùÍÆÎ»ÖÃÎªÏä×Ó,¼´½«Ïä×ÓÍÆÏò¸Ã·½ÏòµÄÇ°ÃæÕâµã
    			if(Check(x, y) && GameMap[x][y] == '#'
    			&& Check(x+dx[dir], y+dy[dir])
    			&& GameMap[ x+dx[dir] ][ y+dy[dir] ] == '.')  {
-    			GameMap[Boxx][Boxy] = '.';  //ç®±å­çš„ä½ç½®æ”¹å˜
+    			GameMap[Boxx][Boxy] = '.';  //Ïä×ÓµÄÎ»ÖÃ¸Ä±ä
     			GameMap[x+dx[dir] ][ y+dy[dir] ] = '#';
    				Boxx = x + dx[dir];  Boxy = y + dy[dir];
-    			GameMap[Pex][Pey] = '.';  //äººçš„ä½ç½®æ”¹å˜
+    			GameMap[Pex][Pey] = '.';  //ÈËµÄÎ»ÖÃ¸Ä±ä
        			GameMap[x][y] = 'P';
        			Pex = x;  Pey = y;
     			dir = -1;
    			}
-  			else  //å°†ç®±å­æ¨å‘è¯¥æ–¹å‘çš„å‰é¢è¿™ç‚¹ä¸ºç›®çš„åœ°
+  			else  //½«Ïä×ÓÍÆÏò¸Ã·½ÏòµÄÇ°ÃæÕâµãÎªÄ¿µÄµØ
     			if(Check(x, y) && GameMap[x][y] == '#'
        			&& Check(x+dx[dir], y+dy[dir])
        			&& GameMap[ x+dx[dir] ][ y+dy[dir] ] == 'T') {
-     				GameMap[Boxx][Boxy] = '.';  //ç®±å­çš„ä½ç½®æ”¹å˜
+     				GameMap[Boxx][Boxy] = '.';  //Ïä×ÓµÄÎ»ÖÃ¸Ä±ä
         			GameMap[x+dx[dir] ][ y+dy[dir] ] = '#';
         			Boxx = x + dx[dir];  Boxy = y + dy[dir];
-        			GameMap[Pex][Pey] = '.';  //äººçš„ä½ç½®æ”¹å˜
+        			GameMap[Pex][Pey] = '.';  //ÈËµÄÎ»ÖÃ¸Ä±ä
            			GameMap[x][y] = 'P';
            			Pex = x;  Pey = y;
        	 			dir = -1;
-     				Succeed = 1;  //è®°å½•æˆåŠŸåˆ°è¾¾ç›®çš„åœ°
+     				Succeed = 1;  //¼ÇÂ¼³É¹¦µ½´ïÄ¿µÄµØ
     			}
  	}
 }
 
-//åˆ¤æ–­è¶Šç•Œæƒ…å†µ
+//ÅĞ¶ÏÔ½½çÇé¿ö
 inline bool Sokoban::Check(int x, int y)  {
  	return (x < 0 || x >= H || y < 0 || y >= L)? 0:1;
 }
